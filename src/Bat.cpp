@@ -61,5 +61,16 @@ void Bat::update(Time dt)
 		m_Position.x += m_Speed * dt.asSeconds();
 	}
 
+	// --- checking window borders
+	if (m_Position.x < 0)
+	{
+		m_Position.x = 0;
+	}
+
+	if (m_Position.x + 100 > 800)
+	{
+		m_Position.x = 800 - 100;
+	}
+
 	m_Shape.setPosition(m_Position);
 }
