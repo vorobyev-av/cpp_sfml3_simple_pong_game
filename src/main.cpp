@@ -39,6 +39,9 @@ int main()
     // --- clock for timing
     Clock clock;
 
+    // -- flag to disable multiple collisions
+    bool ballWasHit = false;
+
     while (window.isOpen())
     {
         // --- INPUT ---
@@ -96,6 +99,7 @@ int main()
             lives--;
 
             ball.reset(800 / 2, 0);
+            ballWasHit = false;
 
             if (lives < 1) {
                 score = 0;
@@ -107,6 +111,7 @@ int main()
         if (ballRect.position.y < 0)
         {
             ball.reboundBatOrTop();
+            ballWasHit = false;
         }
 
         // --- BALL HITTING SIDES ---
@@ -119,8 +124,16 @@ int main()
         // --- BALL HITTING BAT ---
         if (ballRect.findIntersection(batRect).has_value())
         {
-            ball.reboundBatOrTop();
-            score++;
+            if (ball.getYVelocity() > 0 && !ballWasHit)
+            {
+                ball.reboundBatOrTop();
+                score++;
+                ballWasHit = true;
+            }
+        }
+        else
+        {
+            ballWasHit = false;
         }
 
         // --- DRAW EVERYTHING ---

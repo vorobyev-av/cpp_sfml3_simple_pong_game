@@ -32,4 +32,6 @@ public:
 
 	void reset(float startX, float startY);
 
+	float getYVelocity();
+
 };

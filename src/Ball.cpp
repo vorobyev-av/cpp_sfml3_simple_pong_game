@@ -68,3 +68,8 @@ void Ball::reset(float startX, float startY)
 	m_Position.y = startY;
 	m_Shape.setPosition(m_Position);
 }
+
+float Ball::getYVelocity()
+{
+	return m_DirectionY * m_Speed;
+}
